@@ -1,0 +1,18 @@
+  <div layout="row">
+   <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+               <md-button ui-sref="home">{{}} Vacation service</md-button>
+            <!--<span flex></span>-->
+
+       <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="login">
+           Login
+       </md-button>
+       <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="signup">
+           Sign Up
+       </md-button>
+       <md-button class="md-accent md-raised" arial-label="Menu" ng-show="$root.globals.currentUser" ng-click="logout()">
+           Log out
+        </md-button>
+        </div>
+    </md-toolbar>
+</div>

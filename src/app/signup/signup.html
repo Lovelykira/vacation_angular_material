@@ -1,0 +1,55 @@
+
+<div layout="row" layout-align="center center">
+  <h1>Sign up</h1>
+</div>
+<div layout="row" layout-align="center center" ng-show="error" class="error-mess">{{error}}</div>
+
+<form name="userForm" ng-submit="signupCtrl.createUser()">
+    <div layout="row" layout-align="center center">
+        <md-input-container>
+            <label>Login</label>
+            <input name="login" ng-model="user.username" required>
+            <div ng-messages="userForm.login.$error" ng-show="userForm.login.$dirty">
+                <ng-message when="required">This is required!</ng-message>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Password</label>
+            <input name="password" ng-model="user.password" required type="password">
+            <div ng-messages="userForm.password.$error" ng-show="userForm.password.$dirty">
+                <ng-message when="required">This is required!</ng-message>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-align="center center">
+        <md-input-container>
+            <label>Email</label>
+            <input name="email" ng-model="user.email" required type="email">
+            <div ng-messages="userForm.email.$error" ng-show="userForm.email.$dirty">
+                <ng-message when="email">Email is incorrect!</ng-message>
+                <ng-message when="required">This is required!</ng-message>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Name</label>
+            <input name="name" ng-model="user.first_name" required>
+            <div ng-messages="userForm.name.$error" ng-show="userForm.name.$dirty">
+                <ng-message when="required">This is required!</ng-message>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Last Name</label>
+            <input name="lastName" ng-model="user.last_name" required>
+            <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
+                <ng-message when="required">This is required!</ng-message>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row" layout-align="center center">
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="userForm.$invalid">Submit</md-button>
+    </div>
+</form>
