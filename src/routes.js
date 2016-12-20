@@ -27,6 +27,18 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'loginCtrl',
       controllerAs: 'loginCtrl',
       templateUrl: 'app/login/login.html'
+    })
+    .state('history',{
+      url: '/history',
+      controller: 'historyCtrl',
+      controllerAs: 'historyCtrl',
+      templateUrl: 'app/history/history.html'
+    })
+    .state('new_request',{
+      url: '/new_request',
+      controller: 'newRequestCtrl',
+      controllerAs: 'newRequestCtrl',
+      templateUrl: 'app/new-vacation-request/new-request.html'
     });
 }
 
@@ -34,8 +46,9 @@ run.$inject = ['$rootScope', '$state', '$cookieStore', '$http', '$transitions'];
 function run($rootScope, $state, $cookieStore, $http, $transitions ) {
     // keep user logged in after page refresh
     $rootScope.globals = $cookieStore.get('globals') || {};
+
     if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+        $http.defaults.headers.common['Authorization'] = 'Token ' + $rootScope.globals.currentUser.authdata;
     }
     $transitions.onStart({}, function ($transition$) {
       if(($transition$.$to().name == 'login' || $transition$.$to().name == 'signup')&& $rootScope.globals.currentUser){
