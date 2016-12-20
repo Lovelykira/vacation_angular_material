@@ -1,0 +1,48 @@
+<div layout="column" layout-align="center center">
+  <h1>History</h1>
+  <div layout="row" flex >
+
+<mdt-table
+    paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,100]}"
+    mdt-row-paginator="getHistory(page, pageSize, options)"
+    mdt-row-paginator-error-message="Error happened during loading nutritions."
+    data="data"
+    mdt-row="{
+        'table-row-id-key': 'start_date',
+          'column-keys': [
+            'start_date',
+            'end_date',
+            'total',
+            'comment',
+            'status'
+        ],
+    }">
+    <mdt-header-row>
+        <mdt-column align-rule="left">Start date</mdt-column>
+        <mdt-column align-rule="right">End date</mdt-column>
+        <mdt-column align-rule="right">Days total</mdt-column>
+        <mdt-column align-rule="right">Comment</mdt-column>
+        <mdt-column align-rule="right">Status</mdt-column>
+    </mdt-header-row>
+  <!--<mdt-row ng-repeat="item in data">-->
+      <!--<mdt-cell>{{item.start_date}}</mdt-cell>-->
+      <!--<mdt-cell>{{item.end_date}}</mdt-cell>-->
+      <!--<mdt-cell>{{item.total}}</mdt-cell>-->
+      <!--<mdt-cell>{{item.comment}}</mdt-cell>-->
+      <!--<mdt-cell-->
+                <!--editable-field="smallEditDialog"-->
+                <!--editable-field-max-length="25">{{item.status}}-->
+      <!--</mdt-cell>-->
+    <!--</mdt-row>-->
+
+            <!--<mdt-custom   -cell column-key="status">-->
+
+            <!--<span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>-->
+            <!--<span ng-click="clientScope.myMethodToExecute()">click here</span>-->
+
+            <!--<span>This is the row id for this column: {{rowId}}</span>-->
+        <!--</mdt-custom-cell>-->
+</mdt-table>
+
+  </div>
+</div>
