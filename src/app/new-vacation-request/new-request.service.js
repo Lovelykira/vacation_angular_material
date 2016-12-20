@@ -23,11 +23,10 @@
             });
         }
 
-        function getUser(username){
+        function getUser(){
             return $http({
-                method: 'POST',
-                url: 'http://127.0.0.1:8000/api/current-user/',
-                data: {'username': username}
+                method: 'GET',
+                url: 'http://127.0.0.1:8000/api/users/'
             });
         }
     }
