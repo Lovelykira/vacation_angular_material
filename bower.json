@@ -2,15 +2,22 @@
   "name": "fountain-inject",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "^1.5.0",
+    "angular": "1.5.8",
     "angular-ui-router": "1.0.0-beta.1",
     "angular-material": "^1.1.1",
-    "bootstrap": "^3.3.7",
-    "angular-cookies": "^1.6.0",
+    "angular-cookies": "1.5.8",
     "angular-moment": "^1.0.1",
-    "angular-notify": "^2.5.0"
+    "angular-notify": "^2.5.0",
+    "angular-resource": "1.5.8",
+    "angular-material-data-table": "^0.10.10",
+    "angular-animate": "1.5.8",
+    "angular-data-grid": "*",
+    "md-data-table": "^2.2.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
   }
 }
