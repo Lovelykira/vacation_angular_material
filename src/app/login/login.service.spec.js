@@ -2,6 +2,7 @@ describe('login service', function(){
     var API = 'http://127.0.0.1:8000/'
     var TOKEN = 'SomeCoolToken';
     var RESPONSE_SUCCESS = {token: TOKEN};
+    var RESPONSE_ERROR = {error: true};
     var loginService, $httpBackend;
     var result, mock_user;
 
@@ -36,19 +37,43 @@ describe('login service', function(){
             expect(loginService.loginUser).not.toHaveBeenCalled();
             expect(result).toEqual({});
 
-            loginService.loginUser(mock_user).then(
-            function(res){result = res.data;},
-            function(res){result = {'error': true};});
+            loginService.loginUser(mock_user)
+                .then(function(res){
+                      result = res.data;
+                      },
+                      function(res){
+                      result = res.data;
+                });
             $httpBackend.flush();
 
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
-            expect(result).toEqual({'token': TOKEN});
-//            expect($http.defaults.headers.common['Authorization']).toEqual('Basic ' + TOKEN);
-//            expect($rootScope.globals.currentUser).toEqual({
-//                    'username': mock_user.username,
-//                    'authdata': TOKEN
-//                });
-//            expect($cookieStore.get('globals')).toEqual($rootScope.globals);
+            expect(result).toEqual(RESPONSE_SUCCESS);
+        });
+    });
+
+    describe('loginUser() function with invalid user', function(){
+        beforeEach(function() {
+            spyOn(loginService, 'loginUser').and.callThrough();
+        });
+
+        it('should make api call',function(){
+            var auth_url = 'api/token-auth/';
+            $httpBackend.whenPOST('http://127.0.0.1:8000/api/token-auth/').respond(404, RESPONSE_ERROR);
+
+            expect(loginService.loginUser).not.toHaveBeenCalled();
+            expect(result).toEqual({});
+
+            loginService.loginUser(mock_user)
+                .then(function(res){
+                      result = res.data;
+                      },
+                      function(res){
+                      result = res.data;
+                });
+            $httpBackend.flush();
+
+            expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
+            expect(result).toEqual(RESPONSE_ERROR);
         });
     });
 });

@@ -5,7 +5,8 @@
       .module('login')
       .service('loginService', loginService);
 
-    loginService.$inject = ['$http'];
+   loginService.$inject = ['$http'];
+
    function loginService ($http) {
       this.loginUser = loginUser;
 
