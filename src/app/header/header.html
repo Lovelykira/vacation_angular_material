@@ -1,18 +1,42 @@
   <div layout="row">
    <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
-               <md-button ui-sref="home">{{}} Vacation service</md-button>
-            <!--<span flex></span>-->
+             <md-button ui-sref="home" ng-show="$root.globals.currentUser">Welcome, {{$root.globals.currentUser.username}}</md-button>
+             <md-button ui-sref="home" ng-hide="$root.globals.currentUser">Vacation service</md-button>
+              <div class="lock-size"  layout-align="center center">
+                    <md-fab-speed-dial md-open="isOpen" md-direction="{{Direction}}" ng-class="Mode">
+                      <md-fab-trigger>
+                        <md-button aria-label="menu" class="md-fab md-raised md-accent">
+                            <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+                        </md-button>
+                    </md-fab-trigger>
 
-       <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="login">
-           Login
-       </md-button>
-       <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="signup">
-           Sign Up
-       </md-button>
-       <md-button class="md-accent md-raised" arial-label="Menu" ng-show="$root.globals.currentUser" ng-click="logout()">
-           Log out
-        </md-button>
+                    <md-fab-actions>
+                       <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="home">
+                            <md-icon aria-label="Menu" class="material-icons">home</md-icon>
+                        </md-button>
+                        <md-button aria-label="History" class="md-fab md-raised md-mini" ui-sref="history" ng-show="$root.globals.currentUser">
+                            <md-icon aria-label="Menu" class="material-icons">history</md-icon>
+                        </md-button>
+                        <md-button aria-label="New" class="md-fab md-raised md-mini" ui-sref="new_request" ng-show="$root.globals.currentUser">
+                            <md-icon aria-label="Menu" class="material-icons">add box</md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+              </div>
+
+              <span flex></span>
+
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="login">
+                     Login
+                 </md-button>
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="signup">
+                     Sign Up
+                 </md-button>
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-show="$root.globals.currentUser" ng-click="logout()">
+                     Log out
+              </md-button>
         </div>
     </md-toolbar>
 </div>
+

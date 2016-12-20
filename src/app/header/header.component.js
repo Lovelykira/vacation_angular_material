@@ -3,23 +3,27 @@
 
     angular
       .module('mainHeader', [])
+      .controller('headerCtrl', headerCtrl)
       .component('mainHeader', {
           templateUrl: 'app/header/header.html',
           controller: headerCtrl
       });
 
-    headerCtrl.$inject = ['$http', '$rootScope', '$cookieStore', '$state', '$scope'];
+    headerCtrl.$inject = ['credentialsService','$state', '$scope', '$sce'];
 
-    function headerCtrl($http, $rootScope, $cookieStore, $state, $scope){
+    function headerCtrl(credentialsService, $state, $scope, $sce){
+
+      $scope.myImgSrc = $sce.trustAsResourceUrl('/src/img/icons/menu_white.svg');
+      $scope.isOpen = true;
+      $scope.Direction = 'right';
+      $scope.Mode = 'md-fling';
+
       $scope.logout = logout;
       function logout(){
-          console.log('logout');
-          $http.defaults.headers.common['Authorization'] = '';
-          $rootScope.globals = {};
-          $cookieStore.remove('globals');
-          $cookieStore.remove('io');
-          $http.defaults.headers.common.Authorization = '';
+          credentialsService.clearHeadersAndCookies();
           $state.go('home');
       }
+
+
   }
 })();
