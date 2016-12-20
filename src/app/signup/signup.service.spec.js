@@ -2,6 +2,7 @@ describe('signup service', function(){
     var signupService, $httpBackend;
     var API = 'http://127.0.0.1:8000/'
     var RESPONSE_SUCCESS = {'success': true};
+    var RESPONSE_ERROR = {'error': true};
 
     beforeEach(angular.mock.module('signup'));
 
@@ -24,7 +25,7 @@ describe('signup service', function(){
             spyOn(signupService, "createUser").and.callThrough();
         });
 
-        it('should create user', function(){
+        it('should create user when valid data is posted', function(){
             var search = 'api/users/';
             $httpBackend.whenPOST(API + search).respond(200, RESPONSE_SUCCESS);
 
@@ -39,10 +40,28 @@ describe('signup service', function(){
             $httpBackend.flush();
 
             expect(signupService.createUser).toHaveBeenCalledWith(mock_user);
-            expect(result).toEqual({'success': true});
+            expect(result).toEqual(RESPONSE_SUCCESS);
+        });
+
+        it('should create user when invalid data is posted', function(){
+            var search = 'api/users/';
+            $httpBackend.whenPOST(API + search).respond(404, RESPONSE_ERROR);
+
+            expect(signupService.createUser).not.toHaveBeenCalled();
+            expect(result).toEqual({});
+
+            signupService.createUser(mock_user)
+              .then(function(res){
+                    result = res.data;
+              }, function(res){
+                    result = res.data;
+              });
+
+            $httpBackend.flush();
+
+            expect(signupService.createUser).toHaveBeenCalledWith(mock_user);
+            expect(result).toEqual(RESPONSE_ERROR);
         });
     });
-
-
 
 });

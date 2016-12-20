@@ -5,20 +5,23 @@
     .module('signup')
     .controller('signupCtrl', signupCtrl);
 
-    signupCtrl.$inject = ['signupService', '$scope', '$state'];
+    signupCtrl.$inject = ['signupService', 'showNotificationService', '$scope', '$state'];
 
-    function signupCtrl(signupService, $scope, $state){
+    function signupCtrl(signupService, showNotificationService, $scope, $state){
         this.createUser = createUser;
 
         function createUser (){
             signupService.createUser($scope.user)
             .then(function(data){
-                console.log('signup success', data);
                 $state.go('login');
-                 $scope.error = undefined;
             },function(data){
-                $scope.error = data.data.username[0] || 'Error occurred';
-                console.log('signup error', data.data.username[0]);
+                var error_text = 'Error occurred';
+                if(data.data.username)
+                    error_text = data.data.username[0];
+                if(data.data.email)
+                    error_text = data.data.email[0];
+
+                showNotificationService.show('error', error_text);
             });
         }
     }
