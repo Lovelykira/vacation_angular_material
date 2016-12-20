@@ -13,7 +13,7 @@
         function loginUser(user){
             loginService.loginUser(user)
                 .then(function(res){
-                    credentialsService.setHeadersAndCookies(user.username, res);
+                    credentialsService.setHeadersAndCookies(user.username, res.data.token);
                     $scope.error = undefined;
                     $state.go('home');
                 }, function(res){

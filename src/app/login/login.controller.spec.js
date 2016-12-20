@@ -2,8 +2,8 @@ describe('login controller', function(){
     var $controller, loginCtrl, loginService, credentialsService, showNotificationService, $http, $cookieStore, $q,
         $rootScope, mock_user;
     var TOKEN = 'SomeCoolToken';
-    var RESPONSE_SUCCESS = {'token': TOKEN}
-    var RESPONSE_ERROR = {'error': true}
+    var RESPONSE_SUCCESS = {data: {token: TOKEN}};
+    var RESPONSE_ERROR = {'error': true};
 
     beforeEach(module('ui.router'));
     beforeEach(angular.mock.module('cgNotify'));
@@ -53,7 +53,7 @@ describe('login controller', function(){
 
             expect(loginCtrl.loginUser).toHaveBeenCalledWith(mock_user);
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
-            expect(credentialsService.setHeadersAndCookies).toHaveBeenCalledWith(mock_user.username, RESPONSE_SUCCESS);
+            expect(credentialsService.setHeadersAndCookies).toHaveBeenCalledWith(mock_user.username, RESPONSE_SUCCESS.data.token);
         });
     });
 
