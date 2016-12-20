@@ -13,12 +13,15 @@
 
                     <md-fab-actions>
                        <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="home">
+                            <md-tooltip md-direction="bot">home</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">home</md-icon>
                         </md-button>
                         <md-button aria-label="History" class="md-fab md-raised md-mini" ui-sref="history" ng-show="$root.globals.currentUser">
+                            <md-tooltip md-direction="bot">history</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">history</md-icon>
                         </md-button>
                         <md-button aria-label="New" class="md-fab md-raised md-mini" ui-sref="new_request" ng-show="$root.globals.currentUser">
+                            <md-tooltip md-direction="bot">new</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">add box</md-icon>
                         </md-button>
                     </md-fab-actions>
