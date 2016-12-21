@@ -1,6 +1,5 @@
 describe('historyService', function(){
-    var $http, $httpBackend;
-    var API = 'http://127.0.0.1:8000/';
+    var $http, $httpBackend, API;
     var RESPONSE_ERROR = {
         results: []
     }
@@ -23,12 +22,14 @@ describe('historyService', function(){
     }
     var pageSize, page, result;
 
+    beforeEach(angular.mock.module('app'));
     beforeEach(angular.mock.module('history'));
 
-    beforeEach(inject(function(_$http_, _historyService_, _$httpBackend_){
+    beforeEach(inject(function(_$http_, _historyService_, _$httpBackend_, _API_URL_){
         $http = _$http_;
         $httpBackend = _$httpBackend_;
         historyService = _historyService_;
+        API = _API_URL_;
     }));
 
     beforeEach(function(){

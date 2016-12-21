@@ -5,16 +5,13 @@
       .module('login')
       .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['loginService', 'credentialsService', 'showNotificationService', '$scope', '$state', 'notify'];
+    function loginCtrl(loginService, showNotificationService, $state) {
+        var loginCtrl = this;
+        loginCtrl.loginUser = loginUser;
 
-    function loginCtrl(loginService, credentialsService, showNotificationService, $scope, $state, notify) {
-        this.loginUser = loginUser;
-
-        function loginUser(user){
-            loginService.loginUser(user)
+        function loginUser(){
+            loginService.loginUser(loginCtrl.user)
                 .then(function(res){
-                    credentialsService.setHeadersAndCookies(user.username, res.data.token);
-                    $scope.error = undefined;
                     $state.go('home');
                 }, function(res){
                     showNotificationService.show('error', 'Error occurred');

@@ -4,10 +4,8 @@
 
 
 angular.module('history')
- .controller('historyCtrl', ['$scope', '$q', 'historyService', 'showNotificationService',
-      function ($scope, $q, historyService, showNotificationService) {
+ .controller('historyCtrl', function ( $q, historyService, showNotificationService) {
             this.getHistory = getHistory;
-            $scope.getHistory = getHistory;
 
             function getHistory(page, pageSize){
                 return historyService.getUserHistory(page, pageSize)
@@ -21,6 +19,6 @@ angular.module('history')
                     return result;
                 });
             }
-      }]);
+      });
 
   })();

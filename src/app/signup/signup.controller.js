@@ -5,13 +5,12 @@
     .module('signup')
     .controller('signupCtrl', signupCtrl);
 
-    signupCtrl.$inject = ['signupService', 'showNotificationService', '$scope', '$state'];
-
-    function signupCtrl(signupService, showNotificationService, $scope, $state){
-        this.createUser = createUser;
+    function signupCtrl(signupService, showNotificationService, $state){
+        var signupCtrl = this;
+        signupCtrl.createUser = createUser;
 
         function createUser (){
-            signupService.createUser($scope.user)
+            signupService.createUser(signupCtrl.user)
             .then(function(data){
                 $state.go('login');
             },function(data){

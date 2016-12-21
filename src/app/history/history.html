@@ -4,7 +4,7 @@
 
 <mdt-table
     paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,100]}"
-    mdt-row-paginator="getHistory(page, pageSize, options)"
+    mdt-row-paginator="historyCtrl.getHistory(page, pageSize, options)"
     mdt-row-paginator-error-message="Error happened during loading nutritions."
     data="data"
     mdt-row="{

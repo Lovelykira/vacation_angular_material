@@ -6,8 +6,7 @@
         .module('history')
         .service('historyService', historyService)
 
-
-    function historyService($http){
+    function historyService($http, API_URL){
         historyService = this;
         historyService.getUserHistory = getUserHistory;
         historyService.calcVacation = calcVacation;
@@ -24,7 +23,7 @@
         function getUserHistory (page, pageSize){
             return $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8000/api/vacations/?limit=' + pageSize.toString() + '&offset=' + ((page - 1) * pageSize).toString()
+                url: API_URL + 'api/vacations/?limit=' + pageSize.toString() + '&offset=' + ((page - 1) * pageSize).toString()
                 }).then(function(response) {
                     var result = response.data;
 

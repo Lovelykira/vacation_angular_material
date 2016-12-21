@@ -19,7 +19,7 @@ describe('header', function(){
 
     it('should have a logout function', function(){
         expect(headerCtrl).toBeDefined();
-        expect($scope.logout).toBeDefined();
+        expect(headerCtrl.logout).toBeDefined();
     });
 
     describe('logout()', function(){
@@ -29,7 +29,7 @@ describe('header', function(){
         });
 
         it('should call the function to clear headers and cookies and redirect to home', function(){
-              $scope.logout();
+              headerCtrl.logout();
               expect(credentialsService.clearHeadersAndCookies).toHaveBeenCalled();
               expect($state.go).toHaveBeenCalled();
         });

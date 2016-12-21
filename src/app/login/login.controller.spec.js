@@ -10,17 +10,15 @@ describe('login controller', function(){
     beforeEach(angular.mock.module('app'));
     beforeEach(angular.mock.module('login'));
 
-    beforeEach(inject(function(_$controller_, _loginService_, _credentialsService_, _showNotificationService_,
+    beforeEach(inject(function(_$controller_, _loginService_, _showNotificationService_,
                                _$rootScope_, _$q_, _$state_){
         $controller = _$controller_;
         loginService = _loginService_;
-        credentialsService = _credentialsService_;
         showNotificationService = _showNotificationService_;
         $rootScope = _$rootScope_;
         $q = _$q_;
         $state = _$state_;
-        loginCtrl = $controller('loginCtrl', {loginService: loginService, credentialsService: credentialsService,
-                                              showNotificationService: showNotificationService, $scope: {},
+        loginCtrl = $controller('loginCtrl', {loginService: loginService, showNotificationService: showNotificationService,
                                               $state: $state});
     }));
 
@@ -28,6 +26,7 @@ describe('login controller', function(){
         result = {};
         mock_user = {username: 'kira',
                      password: 'qwerty123'};
+        loginCtrl.user = mock_user;
     });
 
     it('should exist', function(){
@@ -38,7 +37,6 @@ describe('login controller', function(){
 
         beforeEach(function(){
             spyOn(loginCtrl, 'loginUser').and.callThrough();
-            spyOn(credentialsService, 'setHeadersAndCookies').and.callFake(function(){});
 
             spyOn(loginService, 'loginUser').and.callFake(function(mock_user){
                 var deferred = $q.defer();
@@ -48,20 +46,18 @@ describe('login controller', function(){
         });
 
         it("should call service's loginUser() function and set headers and cookies", function(){
-            loginCtrl.loginUser(mock_user);
+            loginCtrl.loginUser();
             $rootScope.$digest();
 
-            expect(loginCtrl.loginUser).toHaveBeenCalledWith(mock_user);
+            expect(loginCtrl.loginUser).toHaveBeenCalled();
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
-            expect(credentialsService.setHeadersAndCookies).toHaveBeenCalledWith(mock_user.username, RESPONSE_SUCCESS.data.token);
         });
     });
 
     describe('loginUser() function with invalid user', function(){
         beforeEach(function(){
             spyOn(loginCtrl, 'loginUser').and.callThrough();
-            spyOn(credentialsService, 'setHeadersAndCookies').and.callFake(function(){});
-            spyOn(showNotificationService, 'show').and.callFake(function(){});
+            spyOn(showNotificationService, 'show').and.callFake(angular.noop);
 
             spyOn(loginService, 'loginUser').and.callFake(function(mock_user){
                 var deferred = $q.defer();
@@ -71,12 +67,12 @@ describe('login controller', function(){
         });
 
         it("should call service's loginUser() and show notification about error", function(){
-            loginCtrl.loginUser(mock_user);
+            console.log(loginCtrl.user);
+            loginCtrl.loginUser();
             $rootScope.$digest();
 
-            expect(loginCtrl.loginUser).toHaveBeenCalledWith(mock_user);
+            expect(loginCtrl.loginUser).toHaveBeenCalledWith();
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
-            expect(credentialsService.setHeadersAndCookies).not.toHaveBeenCalled();
             expect(showNotificationService.show).toHaveBeenCalled();
         });
     });

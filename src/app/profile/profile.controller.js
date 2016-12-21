@@ -5,32 +5,34 @@
         .module('profile')
         .controller('profileCtrl', profileCtrl);
 
-    profileCtrl.$inject = ['profileService', '$scope'];
-    function profileCtrl(profileService, $scope){
-        this.getUserInfo = getUserInfo;
-        this.updateUserInfo = updateUserInfo;
+    function profileCtrl(profileService, showNotificationService){
+        var profileCtrl = this;
+        profileCtrl.getUserInfo = getUserInfo;
+        profileCtrl.updateUserInfo = updateUserInfo;
 
         function getUserInfo(){
               profileService.getUser()
                   .then(function(res){
-                      $scope.user = res.data;
-                      console.log(res.data);
+                      profileCtrl.user = res.data;
                   }, function(res){
-                      console.log(res.data);
+
                   });
         }
-        getUserInfo();
+        profileCtrl.getUserInfo();
 
         function updateUserInfo(){
-            var user = {'first_name':'not kira', 'pk': $scope.user.pk}
-            profileService.updateUser(user)
+            var changed_user = {
+                                   pk: profileCtrl.user.pk,
+                                   first_name: profileCtrl.user.first_name,
+                                   last_name: profileCtrl.user.last_name,
+                                   email: profileCtrl.user.email
+                                }
+            profileService.updateUser(changed_user)
                .then(function(res){
-                      console.log(res.data);
+                      showNotificationService.show('success', 'Successfully changed');
                   }, function(res){
-                      console.log(res.data);
+                      showNotificationService.show('error', 'Error occurred');
                   });
         }
-
-        ;
     }
 })();

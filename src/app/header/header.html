@@ -1,10 +1,10 @@
   <div layout="row">
    <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
-             <md-button ui-sref="home" ng-show="$root.globals.currentUser">Welcome, {{$root.globals.currentUser.username}}</md-button>
-             <md-button ui-sref="home" ng-hide="$root.globals.currentUser">Vacation service</md-button>
+             <md-button ui-sref="home" ng-show="$ctrl.currentUser">Welcome, {{$ctrl.currentUser}}</md-button>
+             <md-button ui-sref="home" ng-hide="$ctrl.currentUser">Vacation service</md-button>
               <div class="lock-size"  layout-align="center center">
-                    <md-fab-speed-dial md-open="isOpen" md-direction="{{Direction}}" ng-class="Mode">
+                    <md-fab-speed-dial md-open="$ctrl.isOpen" md-direction="{{$ctrl.Direction}}" ng-class="$ctrl.Mode">
                       <md-fab-trigger>
                         <md-button aria-label="menu" class="md-fab md-raised md-accent">
                             <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
@@ -12,15 +12,15 @@
                     </md-fab-trigger>
 
                     <md-fab-actions>
-                       <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="home">
+                       <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="profile">
                             <md-tooltip md-direction="bot">home</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">home</md-icon>
                         </md-button>
-                        <md-button aria-label="History" class="md-fab md-raised md-mini" ui-sref="history" ng-show="$root.globals.currentUser">
+                        <md-button aria-label="History" class="md-fab md-raised md-mini" ui-sref="history" ng-show="$ctrl.currentUser">
                             <md-tooltip md-direction="bot">history</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">history</md-icon>
                         </md-button>
-                        <md-button aria-label="New" class="md-fab md-raised md-mini" ui-sref="new_request" ng-show="$root.globals.currentUser">
+                        <md-button aria-label="New" class="md-fab md-raised md-mini" ui-sref="new_request" ng-show="$ctrl.currentUser">
                             <md-tooltip md-direction="bot">new</md-tooltip>
                             <md-icon aria-label="Menu" class="material-icons">add box</md-icon>
                         </md-button>
@@ -30,13 +30,13 @@
 
               <span flex></span>
 
-              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="login">
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$ctrl.currentUser" ui-sref="login">
                      Login
                  </md-button>
-              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$root.globals.currentUser" ui-sref="signup">
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-hide="$ctrl.currentUser" ui-sref="signup">
                      Sign Up
                  </md-button>
-              <md-button class="md-accent md-raised" arial-label="Menu" ng-show="$root.globals.currentUser" ng-click="logout()">
+              <md-button class="md-accent md-raised" arial-label="Menu" ng-show="$ctrl.currentUser" ng-click="$ctrl.logout()">
                      Log out
               </md-button>
         </div>

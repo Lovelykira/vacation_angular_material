@@ -1,15 +1,16 @@
 describe('signup service', function(){
-    var signupService, $httpBackend;
-    var API = 'http://127.0.0.1:8000/'
+    var signupService, $httpBackend, API;
     var RESPONSE_SUCCESS = {'success': true};
     var RESPONSE_ERROR = {'error': true};
 
+    beforeEach(angular.mock.module('app'));
     beforeEach(angular.mock.module('signup'));
 
-    beforeEach(inject(function(_signupService_, _$httpBackend_, _$q_){
+    beforeEach(inject(function(_signupService_, _$httpBackend_, _$q_, _API_URL_){
         signupService = _signupService_;
         $httpBackend = _$httpBackend_;
         $q = _$q_;
+        API = _API_URL_;
     }));
 
     it('should exist', function(){

@@ -1,24 +1,29 @@
 describe('login service', function(){
-    var API = 'http://127.0.0.1:8000/'
+    var API;
     var TOKEN = 'SomeCoolToken';
     var RESPONSE_SUCCESS = {token: TOKEN};
     var RESPONSE_ERROR = {error: true};
-    var loginService, $httpBackend;
+    var loginService, $httpBackend, credentialsService;
     var result, mock_user;
 
+    beforeEach(angular.mock.module('app'));
     beforeEach(angular.mock.module('login'));
 
-    beforeEach(inject(function(_loginService_, _$httpBackend_, _$http_, _$cookieStore_){
+    beforeEach(inject(function(_loginService_, _$httpBackend_, _$http_, _$cookieStore_, _credentialsService_, _API_URL_){
         loginService = _loginService_;
         $httpBackend = _$httpBackend_;
         $http = _$http_;
         $cookieStore = _$cookieStore_;
+        credentialsService = _credentialsService_;
+        API = _API_URL_;
     }));
 
     beforeEach(function(){
         result = {};
         mock_user = {username: 'kira',
-                     password: 'qwerty123'}
+                     password: 'qwerty123'};
+
+        spyOn(credentialsService, 'setHeadersAndCookies').and.callFake(angular.noop);
     });
 
     it('should exist', function(){
@@ -39,7 +44,7 @@ describe('login service', function(){
 
             loginService.loginUser(mock_user)
                 .then(function(res){
-                      result = res.data;
+                      result = res;
                       },
                       function(res){
                       result = res.data;
@@ -47,7 +52,8 @@ describe('login service', function(){
             $httpBackend.flush();
 
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
-            expect(result).toEqual(RESPONSE_SUCCESS);
+            expect(credentialsService.setHeadersAndCookies).toHaveBeenCalled();
+            expect(result).toEqual(TOKEN);
         });
     });
 
@@ -73,6 +79,7 @@ describe('login service', function(){
             $httpBackend.flush();
 
             expect(loginService.loginUser).toHaveBeenCalledWith(mock_user);
+            expect(credentialsService.setHeadersAndCookies).not.toHaveBeenCalled();
             expect(result).toEqual(RESPONSE_ERROR);
         });
     });

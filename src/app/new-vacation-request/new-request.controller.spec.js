@@ -1,5 +1,6 @@
 describe('newRequestCtrl', function(){
-     var $controller, newRequestCtrl, newVacationRequestService, showNotificationService, $rootScope, $q, $timeout, notify;
+     var $controller, newRequestCtrl, newVacationRequestService, showNotificationService, $rootScope, $q, $timeout,
+         notify, profileService;
      var mock_user, mock_vacation, mock_username;
      var RESPONSE_SUCCESS = 'Remote call success';
      var RESPONSE_ERROR = {'error': true};
@@ -12,7 +13,7 @@ describe('newRequestCtrl', function(){
      beforeEach(angular.mock.module('newRequest'));
 
      beforeEach(inject(function(_$controller_, _newVacationRequestService_, _showNotificationService_, _$rootScope_,
-                                _$q_, _$timeout_, _notify_){
+                                _$q_, _$timeout_, _notify_, _profileService_){
           $controller = _$controller_;
           newVacationRequestService = _newVacationRequestService_;
           showNotificationService = _showNotificationService_;
@@ -20,6 +21,7 @@ describe('newRequestCtrl', function(){
           $q = _$q_;
           $timeout = _$timeout_;
           notify = _notify_;
+          profileService = _profileService_;
      }));
 
      beforeEach(function(){
@@ -38,7 +40,7 @@ describe('newRequestCtrl', function(){
      });
 
      beforeEach(function(){
-        newRequestCtrl = $controller('newRequestCtrl', {$scope: {}, $rootScope: $rootScope,
+        newRequestCtrl = $controller('newRequestCtrl', {$rootScope: $rootScope,
                                       newVacationRequestService: newVacationRequestService,
                                       showNotificationService: showNotificationService, $timeout: $timeout,
                                       notify: notify });
@@ -57,7 +59,7 @@ describe('newRequestCtrl', function(){
                 return deferred.promise;
             });
 
-            spyOn(newVacationRequestService, 'getUser').and.callFake(function(user){
+            spyOn(profileService, 'getUser').and.callFake(function(user){
                 var deferred = $q.defer();
                 deferred.resolve(mock_user);
                 return deferred.promise;
@@ -67,7 +69,7 @@ describe('newRequestCtrl', function(){
         it('should call newVacationRequestService.saveVacation()', function(){
               newRequestCtrl.saveVacation(mock_username);
               $rootScope.$digest();
-              expect(newVacationRequestService.getUser).toHaveBeenCalledWith(mock_username);
+              expect(profileService.getUser).toHaveBeenCalled();
               expect(newVacationRequestService.saveVacation).toHaveBeenCalled();
               expect(showNotificationService.show).toHaveBeenCalledWith('success', notification_text.success);
         });
@@ -81,7 +83,7 @@ describe('newRequestCtrl', function(){
                 return deferred.promise;
             });
 
-            spyOn(newVacationRequestService, 'getUser').and.callFake(function(user){
+            spyOn(profileService, 'getUser').and.callFake(function(user){
                 var deferred = $q.defer();
                 deferred.reject(RESPONSE_ERROR);
                 return deferred.promise;
@@ -91,7 +93,7 @@ describe('newRequestCtrl', function(){
         it('should call newVacationRequestService.saveVacation()', function(){
               newRequestCtrl.saveVacation(mock_username);
               $rootScope.$digest();
-              expect(newVacationRequestService.getUser).toHaveBeenCalledWith(mock_username);
+              expect(profileService.getUser).toHaveBeenCalled();
               expect(newVacationRequestService.saveVacation).not.toHaveBeenCalled();
               expect(showNotificationService.show).toHaveBeenCalledWith('error', notification_text.auth_error);
         });
@@ -105,7 +107,7 @@ describe('newRequestCtrl', function(){
                 return deferred.promise;
             });
 
-            spyOn(newVacationRequestService, 'getUser').and.callFake(function(user){
+            spyOn(profileService, 'getUser').and.callFake(function(user){
                 var deferred = $q.defer();
                 deferred.resolve(mock_user);
                 return deferred.promise;
@@ -115,7 +117,7 @@ describe('newRequestCtrl', function(){
         it('should call newVacationRequestService.saveVacation()', function(){
               newRequestCtrl.saveVacation(mock_username);
               $rootScope.$digest();
-              expect(newVacationRequestService.getUser).toHaveBeenCalledWith(mock_username);
+              expect(profileService.getUser).toHaveBeenCalled();
               expect(newVacationRequestService.saveVacation).toHaveBeenCalled();
               expect(showNotificationService.show).toHaveBeenCalledWith('error', notification_text.vacation_error);
         });

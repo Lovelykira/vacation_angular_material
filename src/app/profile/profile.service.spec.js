@@ -1,17 +1,18 @@
 describe('profileService', function(){
-    var result, profileService, mock_user, mock_username, RESPONSE_SUCCESS, $httpBackend;
-    var API = 'http://127.0.0.1:8000/';
+    var result, profileService, mock_user,  RESPONSE_SUCCESS, $httpBackend, API;
 
+    beforeEach(angular.mock.module('app'));
     beforeEach(angular.mock.module('profile'));
 
-    beforeEach(inject(function(_profileService_, _$httpBackend_){
+    beforeEach(inject(function(_profileService_, _$httpBackend_, _API_URL_){
         $httpBackend = _$httpBackend_;
         profileService = _profileService_;
+        API = _API_URL_;
     }));
 
     beforeEach(function(){
-        mock_username = 'kira';
-        mock_user = {username: mock_username,
+        mock_user = {pk:1,
+                     username: 'kira',
                      password: 'unknown',
                      first_name: 'fn',
                      last_name: 'ln',
@@ -29,7 +30,7 @@ describe('profileService', function(){
             var request = 'api/users/';
             $httpBackend.whenGET(API + request).respond(200, RESPONSE_SUCCESS);
 
-            profileService.getUser(mock_username)
+            profileService.getUser()
                 .then(function(res){
                     result = res.data;
                 }, function(res){
@@ -46,10 +47,11 @@ describe('profileService', function(){
         });
 
         it('should make API call to update current user', function(){
-            var request = 'api/users/';
+            var request = 'api/users/'+ mock_user.pk.toString() + '/';
+            $httpBackend.whenGET(API + request).respond(200, RESPONSE_SUCCESS);
             $httpBackend.whenPATCH(API + request).respond(200, RESPONSE_SUCCESS);
 
-            profileService.updateUser(mock_username)
+            profileService.updateUser(mock_user)
                 .then(function(res){
                     result = res.data;
                 }, function(res){

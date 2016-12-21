@@ -5,22 +5,21 @@
         .module('profile')
         .service('profileService', profileService);
 
-    profileService.$inject = ['$http'];
-    function profileService($http){
+    function profileService($http, API_URL){
         this.getUser = getUser;
         this.updateUser = updateUser;
 
         function getUser(){
             return $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8000/api/users/'
+                url: API_URL + 'api/users/'
             });
         }
 
         function updateUser(user){
             return $http({
                 method: 'PATCH',
-                url: 'http://127.0.0.1:8000/api/users/' + user.pk.toString() + '/',
+                url: API_URL + 'api/users/' + user.pk.toString() + '/',
                 data: user
             });
         }

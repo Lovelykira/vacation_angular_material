@@ -9,21 +9,29 @@
           controller: headerCtrl
       });
 
-    headerCtrl.$inject = ['credentialsService','$state', '$scope', '$sce'];
+    function headerCtrl(credentialsService, $rootScope, $state, $sce, profileService){
+        var headerCtrl = this;
 
-    function headerCtrl(credentialsService, $state, $scope, $sce){
+        headerCtrl.myImgSrc = $sce.trustAsResourceUrl('/src/img/icons/menu_white.svg');
+        headerCtrl.isOpen = true;
+        headerCtrl.Direction = 'right';
+        headerCtrl.Mode = 'md-fling';
+        headerCtrl.logout = logout;
+//        headerCtrl.getUser = getUser;
 
-      $scope.myImgSrc = $sce.trustAsResourceUrl('/src/img/icons/menu_white.svg');
-      $scope.isOpen = true;
-      $scope.Direction = 'right';
-      $scope.Mode = 'md-fling';
+//        function getUser(){
+//            profileService.getUser()
+//                .then(function(res){
+//                    headerCtrl.currentUser = res.data;
+//                });
+//        }
 
-      $scope.logout = logout;
-      function logout(){
-          credentialsService.clearHeadersAndCookies();
-          $state.go('home');
-      }
+        function logout(){
+            credentialsService.clearHeadersAndCookies();
+            $state.go('home');
+            headerCtrl.currentUser = undefined;
+        }
 
-
-  }
+         $rootScope.$on('loginUser', function(event, mass) { headerCtrl.currentUser = mass; });
+    }
 })();

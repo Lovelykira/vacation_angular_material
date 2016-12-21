@@ -5,27 +5,23 @@
         .module('app')
         .service('credentialsService', credentialsService)
 
-    credentialsService.$inject = ['$http', '$rootScope', '$cookieStore'];
-
-    function credentialsService($http, $rootScope, $cookieStore){
-        this.setHeadersAndCookies = setHeadersAndCookies;
-        this.clearHeadersAndCookies = clearHeadersAndCookies;
+    function credentialsService($http, $rootScope, $cookieStore, $window){
+        var credentialsService = this;
+        credentialsService.setHeadersAndCookies = setHeadersAndCookies;
+        credentialsService.clearHeadersAndCookies = clearHeadersAndCookies;
 
         function setHeadersAndCookies(username, token){
+            $window.localStorage.setItem('token', token);
+            $window.localStorage.setItem('username', username);
             $http.defaults.headers.common['Authorization'] = 'Token ' + token;
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    authdata: token
-                }
-            };
-            $cookieStore.put('globals', $rootScope.globals);
+//            $cookieStore.put('globals', $rootScope.globals);
         }
 
         function clearHeadersAndCookies(){
+            $window.localStorage.removeItem('token');
+            $window.localStorage.removeItem('username');
             $http.defaults.headers.common['Authorization'] = '';
-            $rootScope.globals = {};
-            $cookieStore.remove('globals');
+//            $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = '';
         }
     }

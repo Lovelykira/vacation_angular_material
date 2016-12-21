@@ -5,8 +5,6 @@
         .module('app')
         .service('showNotificationService', showNotificationService)
 
-        showNotificationService.$inject = ['notify'];
-
         function showNotificationService(notify){
             this.show = show;
 

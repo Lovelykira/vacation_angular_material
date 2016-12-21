@@ -1,1 +1,34 @@
-this is profile
+<div layout="row" layout-align="center center">
+  <h1>Profile</h1>
+</div>
+
+<form name="userForm" ng-submit="profileCtrl.updateUserInfo()">
+
+    <div layout="column" layout-align="center center">
+        <md-input-container>
+            <label>Username</label>
+            <input name="email" ng-model="profileCtrl.user.username" disabled>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Email</label>
+            <input name="email" ng-model="profileCtrl.user.email" type="email">
+            <div ng-messages="userForm.email.$error" ng-show="userForm.email.$dirty">
+                <ng-message when="email">Email is incorrect!</ng-message>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>First name</label>
+            <input name="name" ng-model="profileCtrl.user.first_name">
+        </md-input-container>
+
+        <md-input-container>
+            <label>Last name</label>
+            <input name="lastName" ng-model="profileCtrl.user.last_name">
+        </md-input-container>
+    </div>
+    <div layout="row" layout-align="center center">
+        <md-button type="submit" class="md-raised md-primary" ng-disabled="userForm.$invalid || userForm.$pristine">Change</md-button>
+    </div>
+</form>

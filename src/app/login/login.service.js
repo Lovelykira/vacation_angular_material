@@ -5,19 +5,20 @@
       .module('login')
       .service('loginService', loginService);
 
-   loginService.$inject = ['$http'];
-
-   function loginService ($http) {
+   function loginService ($http, API_URL, $rootScope, credentialsService) {
       this.loginUser = loginUser;
 
       function loginUser(user) {
           return $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8000/api/token-auth/',
-                data: {'username': user.username,
-                       'password': user.password
-                       }
-          });
+                url: API_URL + 'api/token-auth/',
+                data: user
+          })
+            .then(function(res){
+                credentialsService.setHeadersAndCookies(user.username, res.data.token);
+                $rootScope.$emit('loginUser', user.username);
+                return res.data.token;
+            });
       };
    }
 
