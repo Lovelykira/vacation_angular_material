@@ -10,5 +10,6 @@ angular
                   'signup',
                   'login',
                   'newRequest',
-                  'history'
+                  'history',
+                  'profile'
                   ]);

@@ -39,7 +39,13 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'newRequestCtrl',
       controllerAs: 'newRequestCtrl',
       templateUrl: 'app/new-vacation-request/new-request.html'
-    });
+    })
+    .state('profile',{
+      url: '/profile',
+      controller: 'profileCtrl',
+      controllerAs: 'profileCtrl',
+      templateUrl: 'app/profile/profile.html'
+    })
 }
 
 run.$inject = ['$rootScope', '$state', '$cookieStore', '$http', '$transitions'];

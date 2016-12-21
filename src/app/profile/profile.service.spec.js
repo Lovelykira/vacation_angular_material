@@ -47,7 +47,7 @@ describe('profileService', function(){
 
         it('should make API call to update current user', function(){
             var request = 'api/users/';
-            $httpBackend.whenPUT(API + request).respond(200, RESPONSE_SUCCESS);
+            $httpBackend.whenPATCH(API + request).respond(200, RESPONSE_SUCCESS);
 
             profileService.updateUser(mock_username)
                 .then(function(res){
