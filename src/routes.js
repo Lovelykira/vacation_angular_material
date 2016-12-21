@@ -3,7 +3,7 @@ angular
   .config(routesConfig)
   .run(run)
   .constant('API_URL', 'http://127.0.0.1:8000/')
-  .factory('TokenAuthInterceptor', function ($window, $q, $rootScope) {
+  .factory('TokenAuthInterceptor', function ($window, $q, $rootScope, $state) {
       return {
           request: function(config) {
               config.headers = config.headers || {};
@@ -16,7 +16,7 @@ angular
           },
           response: function(response) {
               if (response.status === 401) {
-                  //  Redirect user to login page / signup Page.
+                  $state.go('login');
               }
               return response || $q.when(response);
           }
