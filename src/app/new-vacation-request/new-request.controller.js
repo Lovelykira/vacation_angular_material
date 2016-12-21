@@ -16,7 +16,6 @@
             }
 
             function saveVacation(){
-                $scope.error = undefined;
                 newVacationRequestService.getUser($rootScope.globals.currentUser.username)
                     .then(function(res){
                           var current_user_id = res.data.pk;

@@ -24,8 +24,13 @@ describe('newRequestCtrl', function(){
 
      beforeEach(function(){
         mock_username = 'kira';
-        mock_user = '1';
-        mock_vacation = {'user': mock_user,
+        mock_user = {data: {'pk':1,
+                     'username':'kira',
+                     'password':'unknown',
+                     'first_name':'fn',
+                     'last_name':'ln',
+                     'email':'email@e'}};
+        mock_vacation = {'user': mock_user.pk,
                          'start_date': new Date(),
                          'end_date': new Date(),
                          'comment':'some comment'};
@@ -54,7 +59,7 @@ describe('newRequestCtrl', function(){
 
             spyOn(newVacationRequestService, 'getUser').and.callFake(function(user){
                 var deferred = $q.defer();
-                deferred.resolve(mock_username);
+                deferred.resolve(mock_user);
                 return deferred.promise;
             });
         });
@@ -102,7 +107,7 @@ describe('newRequestCtrl', function(){
 
             spyOn(newVacationRequestService, 'getUser').and.callFake(function(user){
                 var deferred = $q.defer();
-                deferred.resolve(RESPONSE_SUCCESS);
+                deferred.resolve(mock_user);
                 return deferred.promise;
             });
         });
