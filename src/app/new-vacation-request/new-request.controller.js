@@ -40,72 +40,72 @@
                     });
             }
 
-           newRequestCtrl.startDate = new Date();
-           newRequestCtrl.minStartDate = new Date();
-
-           newRequestCtrl.maxStartDate = new Date(
-                newRequestCtrl.minStartDate.getFullYear() + 1,
-                newRequestCtrl.minStartDate.getMonth(),
-                newRequestCtrl.minStartDate.getDate());
-
-           newRequestCtrl.endDate = new Date();
-
-           newRequestCtrl.maxEndDate = new Date(
-                newRequestCtrl.startDate.getFullYear(),
-                newRequestCtrl.startDate.getMonth(),
-                newRequestCtrl.startDate.getDate() + 13);
-
-
-//           newRequestCtrl.startDate = moment();
-//           newRequestCtrl.minStartDate = moment();
+//           newRequestCtrl.startDate = new Date();
+//           newRequestCtrl.minStartDate = new Date();
 //
-//           newRequestCtrl.maxStartDate = moment(newRequestCtrl.startDate.add(1, 'y'));
+//           newRequestCtrl.maxStartDate = new Date(
+//                newRequestCtrl.minStartDate.getFullYear() + 1,
+//                newRequestCtrl.minStartDate.getMonth(),
+//                newRequestCtrl.minStartDate.getDate());
 //
-//           newRequestCtrl.endDate = moment(newRequestCtrl.startDate);
-//           newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate.add(13, 'd'));
+//           newRequestCtrl.endDate = new Date();
 //
-//           newRequestCtrl.calcVacation = function(){
-//                newRequestCtrl.Vacation = newRequestCtrl.endDate.diff(newRequestCtrl.startDate, 'd');
-//           }
-//
-//           newRequestCtrl.moveEndDate = function(){
-//              if (newRequestCtrl.startDate > newRequestCtrl.endDate) {
-//                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate);
-//              }
-//              if (newRequestCtrl.endDate.diff(newRequestCtrl.startDate, 'd') > 13) {
-//                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate.add(13, 'd'));
-//              }
-//              newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate.add(13, 'd'));
-//           }
+//           newRequestCtrl.maxEndDate = new Date(
+//                newRequestCtrl.startDate.getFullYear(),
+//                newRequestCtrl.startDate.getMonth(),
+//                newRequestCtrl.startDate.getDate() + 13);
 
 
+           newRequestCtrl.startDate = moment().toDate();
+           newRequestCtrl.minStartDate = moment().toDate();
 
+           newRequestCtrl.maxStartDate = moment(newRequestCtrl.startDate).add(1, 'y').toDate();
 
+           newRequestCtrl.endDate = moment(newRequestCtrl.startDate).toDate();
+           newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate).add(13, 'd').toDate();
 
            newRequestCtrl.calcVacation = function(){
-                var oneDay = 24*60*60*1000;
-                newRequestCtrl.Vacation = (Math.round(( Date.parse(newRequestCtrl.endDate) - Date.parse(newRequestCtrl.startDate) ) /
-                                  oneDay) + 1).toString();
+                newRequestCtrl.Vacation = moment(newRequestCtrl.endDate).diff(newRequestCtrl.startDate, 'd') + 1;
            }
 
            newRequestCtrl.moveEndDate = function(){
-              if (newRequestCtrl.startDate > newRequestCtrl.endDate){
-                  newRequestCtrl.endDate = new Date(newRequestCtrl.startDate);
+              if (newRequestCtrl.startDate > newRequestCtrl.endDate) {
+                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate).toDate();
               }
-
-              if (newRequestCtrl.endDate > new Date( newRequestCtrl.startDate.getFullYear(),
-                                             newRequestCtrl.startDate.getMonth(),
-                                             newRequestCtrl.startDate.getDate() + 13)) {
-                  newRequestCtrl.endDate = new Date(
-                      newRequestCtrl.startDate.getFullYear(),
-                      newRequestCtrl.startDate.getMonth(),
-                      newRequestCtrl.startDate.getDate() + 13 );
+              if (moment(newRequestCtrl.endDate).diff(moment(newRequestCtrl.startDate), 'd') > 13) {
+                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate).add(13, 'd').toDate();
               }
-              newRequestCtrl.maxEndDate = new Date(
-                newRequestCtrl.startDate.getFullYear(),
-                newRequestCtrl.startDate.getMonth(),
-                newRequestCtrl.startDate.getDate() + 13);
+              newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate).add(13, 'd').toDate();
            }
+
+
+
+
+
+//           newRequestCtrl.calcVacation = function(){
+//                var oneDay = 24*60*60*1000;
+//                newRequestCtrl.Vacation = (Math.round(( Date.parse(newRequestCtrl.endDate) - Date.parse(newRequestCtrl.startDate) ) /
+//                                  oneDay) + 1).toString();
+//           }
+//
+//           newRequestCtrl.moveEndDate = function(){
+//              if (newRequestCtrl.startDate > newRequestCtrl.endDate){
+//                  newRequestCtrl.endDate = new Date(newRequestCtrl.startDate);
+//              }
+//
+//              if (newRequestCtrl.endDate > new Date( newRequestCtrl.startDate.getFullYear(),
+//                                             newRequestCtrl.startDate.getMonth(),
+//                                             newRequestCtrl.startDate.getDate() + 13)) {
+//                  newRequestCtrl.endDate = new Date(
+//                      newRequestCtrl.startDate.getFullYear(),
+//                      newRequestCtrl.startDate.getMonth(),
+//                      newRequestCtrl.startDate.getDate() + 13 );
+//              }
+//              newRequestCtrl.maxEndDate = new Date(
+//                newRequestCtrl.startDate.getFullYear(),
+//                newRequestCtrl.startDate.getMonth(),
+//                newRequestCtrl.startDate.getDate() + 13);
+//           }
            newRequestCtrl.calcVacation();
         }
 })();
