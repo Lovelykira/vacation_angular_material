@@ -12,19 +12,20 @@
     function headerCtrl(credentialsService, $rootScope, $state, $sce, profileService){
         var headerCtrl = this;
 
-        headerCtrl.myImgSrc = $sce.trustAsResourceUrl('/src/img/icons/menu_white.svg');
         headerCtrl.isOpen = true;
         headerCtrl.Direction = 'right';
         headerCtrl.Mode = 'md-fling';
         headerCtrl.logout = logout;
-//        headerCtrl.getUser = getUser;
+        headerCtrl.getUser = getUser;
 
-//        function getUser(){
-//            profileService.getUser()
-//                .then(function(res){
-//                    headerCtrl.currentUser = res.data;
-//                });
-//        }
+        function getUser(){
+            profileService.getUser()
+                .then(function(res){
+                    headerCtrl.currentUser = res.data.username;
+                });
+        }
+
+        headerCtrl.getUser();
 
         function logout(){
             credentialsService.clearHeadersAndCookies();

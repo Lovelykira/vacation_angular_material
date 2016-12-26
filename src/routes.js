@@ -2,7 +2,7 @@ angular
   .module('app')
   .config(routesConfig)
   .run(run)
-  .constant('API_URL', 'http://127.0.0.1:8000/')
+  .constant('API_URL', 'http://172.16.207.9:8000/')
   .factory('TokenAuthInterceptor', function ($window, $q, $rootScope, $state) {
       return {
           request: function(config) {
@@ -10,7 +10,7 @@ angular
               if ($window.localStorage.getItem('token') && $window.localStorage.getItem('username')) {
                 // may also use sessionStorage
                   config.headers.Authorization = 'Token ' + $window.localStorage.getItem('token');
-                  $rootScope.$emit('loginUser', $window.localStorage.getItem('username'));
+//                  $rootScope.$emit('loginUser', $window.localStorage.getItem('username'));
               }
               return config || $q.when(config);
           },
@@ -87,9 +87,8 @@ function routesConfig($stateProvider,$httpProvider, $urlRouterProvider, $locatio
 }
 
 function run($rootScope, $state, $cookieStore, $http, $transitions, $window ) {
-
       $transitions.onStart({}, function ($transition$) {
-          if($transition$.$to().data.login && !$window.localStorage.getItem('token')) {
+          if($transition$.$to().data && $transition$.$to().data.login && !$window.localStorage.getItem('token')) {
               $state.go('login');
           }
       });

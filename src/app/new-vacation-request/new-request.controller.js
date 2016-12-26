@@ -55,6 +55,33 @@
                 newRequestCtrl.startDate.getMonth(),
                 newRequestCtrl.startDate.getDate() + 13);
 
+
+//           newRequestCtrl.startDate = moment();
+//           newRequestCtrl.minStartDate = moment();
+//
+//           newRequestCtrl.maxStartDate = moment(newRequestCtrl.startDate.add(1, 'y'));
+//
+//           newRequestCtrl.endDate = moment(newRequestCtrl.startDate);
+//           newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate.add(13, 'd'));
+//
+//           newRequestCtrl.calcVacation = function(){
+//                newRequestCtrl.Vacation = newRequestCtrl.endDate.diff(newRequestCtrl.startDate, 'd');
+//           }
+//
+//           newRequestCtrl.moveEndDate = function(){
+//              if (newRequestCtrl.startDate > newRequestCtrl.endDate) {
+//                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate);
+//              }
+//              if (newRequestCtrl.endDate.diff(newRequestCtrl.startDate, 'd') > 13) {
+//                  newRequestCtrl.endDate = moment(newRequestCtrl.startDate.add(13, 'd'));
+//              }
+//              newRequestCtrl.maxEndDate = moment(newRequestCtrl.startDate.add(13, 'd'));
+//           }
+
+
+
+
+
            newRequestCtrl.calcVacation = function(){
                 var oneDay = 24*60*60*1000;
                 newRequestCtrl.Vacation = (Math.round(( Date.parse(newRequestCtrl.endDate) - Date.parse(newRequestCtrl.startDate) ) /
