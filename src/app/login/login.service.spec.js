@@ -37,7 +37,7 @@ describe('login service', function(){
 
         it('should make api call',function(){
             var auth_url = 'api/token-auth/';
-            $httpBackend.whenPOST('http://127.0.0.1:8000/api/token-auth/').respond(200, RESPONSE_SUCCESS);
+            $httpBackend.whenPOST(API + 'api/token-auth/').respond(200, RESPONSE_SUCCESS);
 
             expect(loginService.loginUser).not.toHaveBeenCalled();
             expect(result).toEqual({});
@@ -64,7 +64,7 @@ describe('login service', function(){
 
         it('should make api call',function(){
             var auth_url = 'api/token-auth/';
-            $httpBackend.whenPOST('http://127.0.0.1:8000/api/token-auth/').respond(404, RESPONSE_ERROR);
+            $httpBackend.whenPOST(API + 'api/token-auth/').respond(404, RESPONSE_ERROR);
 
             expect(loginService.loginUser).not.toHaveBeenCalled();
             expect(result).toEqual({});
