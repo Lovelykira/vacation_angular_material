@@ -67,7 +67,6 @@ describe('login controller', function(){
         });
 
         it("should call service's loginUser() and show notification about error", function(){
-            console.log(loginCtrl.user);
             loginCtrl.loginUser();
             $rootScope.$digest();
 
